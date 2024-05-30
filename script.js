@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-      });
-      
     let gamesData = [];
 
     // Function to fetch CSV file
@@ -11,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error fetching CSV file:', error));
     }
 
-    // Populate game options from CSV datas
+    // Populate game options from CSV data
     function populateGameOptions(csvData) {
         const rows = csvData.split('\n');
         for (let i = 1; i < rows.length; i++) {
@@ -27,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         gamesData.forEach(game => {
             const option = document.createElement('option');
             option.value = game.title;
-            option.text = game.title;
+            option.textContent = game.title;
             fromGameSelect.add(option.cloneNode(true));
             toGameSelect.add(option.cloneNode(true));
         });
@@ -45,6 +43,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const fromDPI = parseInt(document.getElementById('fromDPI').value);
         const toDPI = parseInt(document.getElementById('toDPI').value);
 
+        if (isNaN(fromSensitivity) || isNaN(fromDPI) || isNaN(toDPI)) {
+            console.error('Invalid input values.');
+            return;
+        }
+
         const fromGameData = gamesData.find(game => game.title === fromGame);
         const toGameData = gamesData.find(game => game.title === toGame);
 
@@ -58,27 +61,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const baseSensitivity = fromSensitivity / fromSensitivityFactor;
         const convertedSensitivity = baseSensitivity * toSensitivityFactor * (fromDPI / toDPI);
-        // const cmPer360 = (2.54 * 360) / (convertedSensitivity * toDPI);
-        // const inchPer360 = cmPer360 / 2.54;
-        // const inchper360 = (toDPI *  convertedSensitivity) / 360 )
 
- 
         // Display result
         document.getElementById('convertedSens').textContent = convertedSensitivity.toFixed(2);
-        // document.getElementById('cmPer360').textContent = cmPer360.toFixed(2);
-        // document.getElementById('inchPer360').textContent = inchPer360.toFixed(2);
     });
-
-    // Inside the populateGameOptions function after populating game options
-    const sensitivitySelect = document.getElementById('fromSensitivity');
-    // Clear any existing options
-    sensitivitySelect.innerHTML = '';
-    // Define sensitivity values
-    const sensitivityValues = [138544, 6648, 41561.8, 138544, 159592, 41560, 13062.4]; // Add or adjust sensitivity values as needed
-    // Populate sensitivity options
-    sensitivityValues.forEach(value => {
-        const option = document.createElement('option');
-        option.value = value;
-        option.textContent = value;
-        sensitivitySelect.appendChild(option);
-    });
+});
