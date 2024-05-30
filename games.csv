@@ -1,8 +1,9 @@
-title,sensitivity_factor
-Call of duty: warzone,138544
-Krunker,6648
-CS2,41561.8
-Overwatch 2,138544
-Rainbow six: Siege,159592
-Titanfall 2,41560
-VALORANT,13062.4
+[
+  { "title": "Call Of Duty: Warzone 2", "sensitivity_factor": 138544 },
+  { "title": "Krunker", "sensitivity_factor": 6648 },
+  { "title": "CS2", "sensitivity_factor": 41561.8 },
+  { "title": "Overwatch 2", "sensitivity_factor": 138544 },
+  { "title": "Rainbow Six: Siege", "sensitivity_factor": 159592 },
+  { "title": "Titanfall 2", "sensitivity_factor": 41560 },
+  { "title": "Valorant", "sensitivity_factor": 13062.4 }
+]
