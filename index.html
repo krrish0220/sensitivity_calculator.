@@ -1,80 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>FPS Sensitivity Converter</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #f0f0f0;
-    }
-   .container {
-        width: 400px;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        background-color: white;
-    }
-   .form-group {
-        margin-bottom: 15px;
-    }
-    button {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    button:hover {
-        background-color: #0056b3;
-    }
-</style>
-<!-- <script src="script.js"></script> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPS Sensitivity Converter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+            margin: 0;
+        }
+        header, footer {
+            width: 100%;
+            padding: 10px 0;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #666666;
+        }
+        select, input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #333333;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        select:hover, input:hover {
+            border-color: #007bff;
+        }
+        select:focus, input:focus {
+            border-color: #007bff;
+        }
+        input::placeholder {
+            color: #999999;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .result {
+            margin-top: 1rem;
+            font-weight: bold;
+            color: #333333;
+        }
+        .error {
+            color: red;
+            font-size: 0.875rem;
+            margin-top: 5px;
+        }
+        .input-error {
+            border-color: red;
+        }
+        @media (max-width: 500px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
+<header>
+    <h2>FPS Sensitivity Converter</h2>
+</header>
+
 <div class="container">
-    <h1>FPS Sensitivity Converter</h1>
-    <form id="conversionForm">
+    <h1>Convert Your Sensitivity</h1>
+    <form id="conversionForm" novalidate>
         <div class="form-group">
             <label for="fromGame">Convert from:</label>
-            <select id="fromGame" name="fromGame">
+            <select id="fromGame" name="fromGame" aria-label="Convert from">
                 <!-- Game options will be populated here -->
             </select>
         </div>
         <div class="form-group">
             <label for="toGame">Convert to:</label>
-            <select id="toGame" name="toGame">
+            <select id="toGame" name="toGame" aria-label="Convert to">
                 <!-- Game options will be populated here -->
             </select>
         </div>
         <div class="form-group">
             <label for="fromSensitivity">From Game Sensitivity:</label>
-            <input type="number" id="fromSensitivity" name="fromSensitivity" min="0" max="100" step="0.01">
+            <input type="number" id="fromSensitivity" name="fromSensitivity" min="0" max="100" step="0.01" placeholder="Enter game sensitivity" aria-label="From game sensitivity">
+            <div id="fromSensitivityError" class="error"></div>
         </div>
         <div class="form-group">
             <label for="fromDPI">From Mouse DPI:</label>
-            <input type="number" id="fromDPI" name="fromDPI" min="0" max="32000" step="10">
+            <input type="number" id="fromDPI" name="fromDPI" min="0" max="32000" step="10" placeholder="Enter mouse DPI" aria-label="From mouse DPI">
+            <div id="fromDPIError" class="error"></div>
         </div>
         <div class="form-group">
             <label for="toDPI">To Mouse DPI:</label>
-            <input type="number" id="toDPI" name="toDPI" min="0" max="32000" step="10">
+            <input type="number" id="toDPI" name="toDPI" min="0" max="32000" step="10" placeholder="Enter target DPI" aria-label="To mouse DPI">
+            <div id="toDPIError" class="error"></div>
         </div>
         <button type="submit">Convert</button>
     </form>
-    <div class="result">
+    <div class="result" aria-live="polite">
         <p>Converted Sensitivity: <span id="convertedSens">0</span></p>
-        <!-- <p>cm/360: <span id="cmPer360">0</span></p>
-        <p>in/360: <span id="inchPer360">0</span></p> -->
     </div>
 </div>
 
-<script src="script.js"></script>
+<footer>
+    <p>&copy; 2024 FPS Sensitivity Converter</p>
+</footer>
+
+<script>
+// CSV data
+const csvData = `title,sensitivity_factor
+Call Of Duty: Warzone 2,138544
+Krunker,6648
+CS2,41561.8
+Overwatch 2,138544
+Rainbow Six: Siege,159592
+Titanfall 2,41560
+Valorant,13062.4`;
+
+// Parse CSV data
+function parseCSV(data) {
+    const lines = data.trim().split('\n');
+    const headers = lines[0].split(',');
+    const result = lines.slice(1).map(line => {
+        const values = line.split(',');
+        let obj = {};
+        headers.forEach((header, index) => {
+            obj[header.trim()] = isNaN(values[index].trim()) ? values[index].trim() : parseFloat(values[index].trim());
+        });
+        return obj;
+    });
+    return result;
+}
+
+// Populate dropdowns
+function populateDropdowns(games) {
+    const fromGameSelect = document.getElementById('fromGame');
+    const toGameSelect = document.getElementById('toGame');
+    games.forEach(game => {
+        const option = document.createElement('option');
+        option.value = game.sensitivity_factor;
+        option.textContent = game.title;
+        fromGameSelect.appendChild(option);
+        toGameSelect.appendChild(option.cloneNode(true));
+    });
+}
+
+// Conversion function
+document.getElementById('conversionForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const fromGameFactor = parseFloat(document.getElementById('fromGame').value);
+    const toGameFactor = parseFloat(document.getElementById('toGame').value);
+    const fromSensitivity = parseFloat(document.getElementById('fromSensitivity').value);
+    const fromDPI = parseFloat(document.getElementById('fromDPI').value);
+    const toDPI = parseFloat(document.getElementById('toDPI').value);
+
+    let isValid = true;
+
+    if (isNaN(fromSensitivity) || fromSensitivity <= 0) {
+        document.getElementById('fromSensitivityError').textContent = "Please enter a valid game sensitivity.";
+        document.getElementById('fromSensitivity').classList.add('input-error');
+        isValid = false;
+    } else {
+        document.getElementById('fromSensitivityError').textContent = "";
+        document.getElementById('fromSensitivity').classList.remove('input-error');
+    }
+
+    if (isNaN(fromDPI) || fromDPI <= 0) {
+        document.getElementById('fromDPIError').textContent = "Please enter a valid mouse DPI.";
+        document.getElementById('fromDPI').classList.add('input-error');
+        isValid = false;
+    } else {
+        document.getElementById('fromDPIError').textContent = "";
+        document.getElementById('fromDPI').classList.remove('input-error');
+    }
+
+    if (isNaN(toDPI) || toDPI <= 0) {
+        document.getElementById('toDPIError').textContent = "Please enter a valid target DPI.";
+        document.getElementById('toDPI').classList.add('input-error');
+        isValid = false;
+    } else {
+        document.getElementById('toDPIError').textContent = "";
+        document.getElementById('toDPI').classList.remove('input-error');
+    }
+
+    if (isValid) {
+        const convertedSensitivity = (fromSensitivity * fromDPI * toGameFactor) / (fromGameFactor * toDPI);
+        document.getElementById('convertedSens').textContent = convertedSensitivity.toFixed(2);
+    }
+});
+
+// Initialize
+const games = parseCSV(csvData);
+populateDropdowns(games);
+</script>
 
 </body>
 </html>
