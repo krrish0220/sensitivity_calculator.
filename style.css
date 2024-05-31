@@ -1,3 +1,4 @@
+.sensitivity_converter body
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f4f4f4;
@@ -11,7 +12,7 @@ body {
     background-size: cover;
 }
 
-.container {
+.sensitivity_converter .container {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -20,12 +21,12 @@ body {
     padding: 2rem;
 }
 
-h1 {
+.sensitivity_converter h1 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
 }
 
-select, input {
+.sensitivity_converter select , input {
     width: calc(100% - 20px);
     padding: 10px;
     margin: 10px 0;
@@ -34,12 +35,12 @@ select, input {
     transition: border-color 0.3s;
 }
 
-select:focus, input:focus {
+.sensitivity_converter select:focus, input:focus {
     border-color: #007bff;
     outline: none;
 }
 
-button {
+.sensitivity_converter button {
     background-color: #007bff;
     color: white;
     padding: 10px 20px;
@@ -50,29 +51,29 @@ button {
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-button:hover {
+.sensitivity_converter button:hover {
     background-color: #0056b3;
 }
 
-.form-group {
+.sensitivity_converter  .form-group {
     margin-bottom: 15px;
 }
 
-.converted-sensitivity {
+.sensitivity_converter .converted-sensitivity {
     margin-top: 1rem;
     font-weight: bold;
     color: #333;
 }
 
-.result p {
+.sensitivity_converter  .result p {
     margin-top: 10px;
 }
 
-.input-error {
+.sensitivity_converter  .input-error {
     border-color: red;
 }
 
-.error {
+.sensitivity_converter  .error {
     color: red;
     font-size: 0.875rem;
     margin-top: 5px;
